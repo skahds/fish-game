@@ -1,3 +1,5 @@
+nk.sprites = {}
+
 -- this is made by chatgipity, im not smart enough to use love.filesystem
 
 local function requireFolder(folder)
@@ -30,7 +32,7 @@ local function requireFolder(folder)
 end
 
 -- Call the function for the folder you want to load files from
-requireFolder("builtin_mods/collision_check")
+requireFolder("builtin_mods/basic_functionality")
 requireFolder("builtin_mods/ui")
 requireFolder("builtin_mods/main")
 requireFolder("builtin_mods/content")

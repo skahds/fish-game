@@ -4,8 +4,8 @@ function nkui:init(args)
     for k, v in pairs(args) do
         self[k] = v
     end
-    self.width = self.w or self.defaultWidth
-    self.height = self.h or self.defaultHeight
+    self.width = self.width or self.defaultWidth
+    self.height = self.height or self.defaultHeight
 end
 
 function nkui:draw()

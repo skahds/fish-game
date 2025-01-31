@@ -27,7 +27,7 @@ end
 ---gets from nk.storage
 ---@param name string
 ---@return unknown
-function nk.get(name)
+function nk.getStorage(name)
     return nk.storage[name]
 end
 

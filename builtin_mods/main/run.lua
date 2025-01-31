@@ -5,17 +5,23 @@ nk.on("@keyreleased", function (key)
 end)
 
 nk.on("@update", function (dt)
-    for index, fish in ipairs(nk.main.world) do
-        if fish.update then
-            fish:update()
+    for index, entity in ipairs(nk.main.world) do
+        if entity.update then
+            entity:update()
         end
     end
 end)
 
 nk.on("@renderer:render", function (dt)
-    for index, fish in ipairs(nk.main.world) do
-        if fish.draw then
-            fish:draw()
+    for index, entity in ipairs(nk.main.world) do
+        if entity.draw then
+            entity:draw()
         end
     end
+end)
+
+
+
+nk.on("@update", function ()
+    nk.updateStorage("mousePos", {x=love.mouse.getX(), y=love.mouse.getY()})
 end)

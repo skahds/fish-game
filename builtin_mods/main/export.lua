@@ -11,7 +11,7 @@ function nkm.basic_entity:draw()
         if self.image then
             love.graphics.draw(nk.getImage(self.image), self.x, self.y, self.direction or 0, 1, 1)
         else
-            love.graphics.setColor(0.4, 0.4, 1)
+            love.graphics.setColor(1, 1, 1)
             love.graphics.rectangle("fill", self.x, self.y, self.width, self.height)
             love.graphics.setColor(1, 1, 1)
         end
@@ -21,9 +21,12 @@ end
 
 -- name, image, onUpdate (contains ai to go to bait)
 
-function nkm.defineFish(id, eType)
-    local fishClass = class(nkm.basic_entity)
-    function fishClass:init(args)
+---defines an entity at nk.main.entities
+---@param id string
+---@param eType table
+function nkm.defineEntity(id, eType)
+    local entityClass = class(nkm.basic_entity)
+    function entityClass:init(args)
         for k, v in pairs(eType) do
             self[k] = v
         end
@@ -42,17 +45,17 @@ function nkm.defineFish(id, eType)
         end
     end
 
-    function fishClass:update()
+    function entityClass:update()
         if self.onUpdate then
             self:onUpdate()
         end
     end
 
 
-    nkm.entities[id] = fishClass
+    nkm.entities[id] = entityClass
 end
 
-function nkm.spawnFish(id, args)
+function nkm.spawnEntity(id, args)
     print("spawning" .. id .. " at " .. args.x .. ", " .. args.y)
     table.insert(nkm.world, nkm.entities[id]:new(args))
 end

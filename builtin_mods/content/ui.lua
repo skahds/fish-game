@@ -7,7 +7,7 @@ local testUI = nkui:new({
     y=100,
     
     onClick = function (ui, button)
-        print("hi")
+        nk.main.spawnEntity("light", {x=ui.x+100, y=ui.y})
     end
 })
 

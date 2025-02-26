@@ -1,4 +1,5 @@
 nk.main.defineEntity("light", {
+    name = "light",
     defaultWidth = 10,
     defaultHeight = 10,
 

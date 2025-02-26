@@ -13,7 +13,5 @@ nk.on("ui:noUIPressed", function ()
 end)
 
 
-
-
 nk.on("@load", nk.main.spawnEntity("player", {x=10, y=10}))
 nk.updateStorage("playerEnt", nk.main.world[#nk.main.world])

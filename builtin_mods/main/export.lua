@@ -1,6 +1,7 @@
 nk.main = {
     entities = {},
-    world = {}
+    world = {},
+    deleteQueue = {}
 } -- contains all "main" function for the content
 local nkm = nk.main
 
@@ -16,6 +17,10 @@ function nkm.basic_entity:draw()
             love.graphics.setColor(1, 1, 1)
         end
     end
+end
+
+function nkm.basic_entity:delete()
+    table.insert(nkm.deleteQueue, self)
 end
 
 
@@ -43,6 +48,10 @@ function nkm.defineEntity(id, eType)
                 self.height = img:getHeight()
             end
         end
+
+        if eType.collisionTag == nil then
+            eType.collisionTag = {env=true}
+        end
     end
 
     function entityClass:update()
@@ -51,11 +60,33 @@ function nkm.defineEntity(id, eType)
         end
     end
 
+    -- collision system.. should it be here?
+    function entityClass:checkCollision()
+        for i, ent in pairs(nk.main.world) do
+            local tagCheck = false
+
+            for tag, bool in pairs(self.collisionTag) do
+                if ent.collisionTag[tag] == true then
+                    tagCheck = true
+                    break
+                end
+            end
+
+            if tagCheck then
+                if nk.collision.AABB_check(self, ent) then
+                    if self.onCollided then self.onCollided(self, ent) end
+                    if ent.onCollided then ent.onCollided(ent, self) end
+                end
+            end
+        end
+    end
+
 
     nkm.entities[id] = entityClass
 end
 
 function nkm.spawnEntity(id, args)
-    print("spawning" .. id .. " at " .. args.x .. ", " .. args.y)
+    print("spawning" .. id .. " at " .. args.x .. ", " .. args.y .. " id " .. #nkm.world+1)
     table.insert(nkm.world, nkm.entities[id]:new(args))
+    nkm.world[#nkm.world].index = #nkm.world
 end

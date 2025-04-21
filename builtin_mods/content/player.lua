@@ -9,7 +9,11 @@ nk.main.defineEntity("player", {
 nk.on("ui:noUIPressed", function ()
     local playerEnt = nk.getStorage("playerEnt")
     local mouse = nk.getStorage("mousePos")
-    nk.main.spawnEntity("light", {x = mouse.x, y=mouse.y})
+    
+    local entityChosen = nk.main.posToEnt(mouse)
+    if entityChosen then
+        print("entityChosen")
+    end
 end)
 
 

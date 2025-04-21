@@ -3,11 +3,10 @@ nk.main = {
     world = {},
     deleteQueue = {}
 } -- contains all "main" function for the content
-local nkm = nk.main
 
-nkm.basic_entity = class()
+nk.main.basic_entity = class()
 
-function nkm.basic_entity:draw()
+function nk.main.basic_entity:draw()
     if self.x and self.y and self.height and self.width then
         if self.image then
             love.graphics.draw(nk.getImage(self.image), self.x, self.y, self.direction or 0, 1, 1)
@@ -19,8 +18,8 @@ function nkm.basic_entity:draw()
     end
 end
 
-function nkm.basic_entity:delete()
-    table.insert(nkm.deleteQueue, self)
+function nk.main.basic_entity:delete()
+    table.insert(nk.main.deleteQueue, self)
 end
 
 
@@ -29,8 +28,8 @@ end
 ---defines an entity at nk.main.entities
 ---@param id string
 ---@param eType table
-function nkm.defineEntity(id, eType)
-    local entityClass = class(nkm.basic_entity)
+function nk.main.defineEntity(id, eType)
+    local entityClass = class(nk.main.basic_entity)
     function entityClass:init(args)
         for k, v in pairs(eType) do
             self[k] = v
@@ -82,11 +81,22 @@ function nkm.defineEntity(id, eType)
     end
 
 
-    nkm.entities[id] = entityClass
+    nk.main.entities[id] = entityClass
 end
 
-function nkm.spawnEntity(id, args)
-    print("spawning" .. id .. " at " .. args.x .. ", " .. args.y .. " id " .. #nkm.world+1)
-    table.insert(nkm.world, nkm.entities[id]:new(args))
-    nkm.world[#nkm.world].index = #nkm.world
+function nk.main.spawnEntity(id, args)
+    print("spawning" .. id)
+    table.insert(nk.main.world, nk.main.entities[id]:new(args))
+    nk.main.world[#nk.main.world].index = #nk.main.world
+end
+
+---returns position of X and Y to an entity
+---@param pos table
+---@return entity
+function nk.main.posToEnt(pos)
+    for index, entity in ipairs(nk.main.world) do
+        if nk.collision.AABB_check(pos, entity) then
+            return entity
+        end
+    end
 end

@@ -5,7 +5,6 @@ nk.on("@update:lazy", function (dt)
         local playerEnt = nk.getStorage("playerEnt")
         if distanceFrom(playerEnt.x, playerEnt.y, entity.x, entity.y) > 5000 then
             entity:delete()
-            print("deleted entity")
         end
     end
 end)

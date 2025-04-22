@@ -8,10 +8,14 @@ end)
 -- what's a lazy update?
 local lazyUpdateCount = 0
 
+
+local layers = {"world", "grid"}
 nk.on("@update", function (dt)
-    for index, entity in ipairs(nk.main.world) do
-        if entity.update then
-            entity:update()
+    for i, layers in ipairs(layers) do
+        for index, entity in ipairs(nk.main[layers]) do
+            if entity.update then
+                entity:update()
+            end
         end
     end
 
@@ -39,9 +43,11 @@ nk.on("@update", function (dt)
 end)
 
 nk.on("@renderer:render", function (dt)
-    for index, entity in ipairs(nk.main.world) do
-        if entity.draw then
-            entity:draw()
+    for i, layers in ipairs(layers) do
+        for index, entity in ipairs(nk.main[layers]) do
+            if entity.draw then
+                entity:draw()
+            end
         end
     end
 end)

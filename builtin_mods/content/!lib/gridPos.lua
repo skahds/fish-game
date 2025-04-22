@@ -50,7 +50,7 @@ function nk.main.gridPosToEnt(gridPos)
         if entity then
             return entity
         else
-            return false
+            return nil
         end
     end
 end

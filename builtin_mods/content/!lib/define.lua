@@ -3,7 +3,7 @@ contentLib = {}
 
 
 nk.main.grid = {
-    info = {width = 5, height = 5, buildingZ = 0, ingredientZ = 10, gridRenderSize = 30, gridRenderOffset = {30, 30}},
+    info = {width = 5, height = 5, buildingZ = 0, ingredientZ = 10, gridRenderSize = 30, gridRenderOffset = {x=100, y=100}},
     building = {},
     ingredient = {},
 }
@@ -14,10 +14,13 @@ function contentLib.trySpawnIngredient(entityName, gridPos, force)
 
     local originalGridEnt = nk.main.gridPosToEnt(gridPos)
 
-    if originalGridEnt == false then
+    print("trySpawnIngredient " .. entityName)
+    if originalGridEnt == nil then
         nk.main.spawnEntity(entityName, {gridPos=gridPos})
     elseif force and originalGridEnt then
         originalGridEnt:delete()
+        nk.main.spawnEntity(entityName, {gridPos=gridPos})
     end
 
 end
+

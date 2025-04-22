@@ -61,20 +61,24 @@ function nk.main.defineEntity(id, eType)
 
     -- collision system.. should it be here?
     function entityClass:checkCollision()
-        for i, ent in pairs(nk.main.world) do
-            local tagCheck = false
-
-            for tag, bool in pairs(self.collisionTag) do
-                if ent.collisionTag[tag] == true then
-                    tagCheck = true
-                    break
-                end
-            end
-
-            if tagCheck then
-                if nk.collision.AABB_check(self, ent) then
-                    if self.onCollided then self.onCollided(self, ent) end
-                    if ent.onCollided then ent.onCollided(ent, self) end
+        if self.x and self.y then
+            for i, ent in pairs(nk.main.world) do
+                if ent.x and ent.y then
+                    local tagCheck = false
+        
+                    for tag, bool in pairs(self.collisionTag) do
+                        if ent.collisionTag[tag] == true then
+                            tagCheck = true
+                            break
+                        end
+                    end
+        
+                    if tagCheck then
+                        if nk.collision.AABB_check(self, ent) then
+                            if self.onCollided then self.onCollided(self, ent) end
+                            if ent.onCollided then ent.onCollided(ent, self) end
+                        end
+                    end
                 end
             end
         end
@@ -95,8 +99,10 @@ end
 ---@return entity
 function nk.main.posToEnt(pos)
     for index, entity in ipairs(nk.main.world) do
-        if nk.collision.AABB_check(pos, entity) then
-            return entity
+        if entity.x and entity.y then
+            if nk.collision.AABB_check(pos, entity) then
+                return entity
+            end
         end
     end
 end

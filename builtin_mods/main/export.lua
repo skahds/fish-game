@@ -93,16 +93,3 @@ function nk.main.spawnEntity(id, args)
     table.insert(nk.main.world, nk.main.entities[id]:new(args))
     nk.main.world[#nk.main.world].index = #nk.main.world
 end
-
----returns position of X and Y to an entity
----@param pos table
----@return entity
-function nk.main.posToEnt(pos)
-    for index, entity in ipairs(nk.main.world) do
-        if entity.x and entity.y then
-            if nk.collision.AABB_check(pos, entity) then
-                return entity
-            end
-        end
-    end
-end

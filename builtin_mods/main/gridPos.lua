@@ -24,6 +24,10 @@ function gridPos:move(dx, dy)
     self.index = self.x + self.y * nk.main.grid.info.width
 end
 
+function gridPos:setPos(gridPos)
+    self = gridPos
+end
+
 function gridPos:getZLayerName()
     if self.z then
         if self.z == 0 then
@@ -52,5 +56,47 @@ function nk.main.gridPosToEnt(gridPos)
         else
             return nil
         end
+    end
+end
+
+---returns position of X and Y to an entity
+---@param pos table
+---@return entity
+function nk.main.realPosToEnt(pos)
+    for index, entity in ipairs(nk.main.world) do
+        if entity.x and entity.y then
+            if nk.collision.AABB_check(pos, entity) then
+                return entity
+            end
+        end
+    end
+end
+
+-- what is this naming
+function nk.main.realPosToGridPos(x, y, z)
+    local info = nk.main.grid.info
+    if info then
+        z = z or info.ingredientZ
+        x = math.floor((x - info.gridRenderOffset.x) / info.gridRenderSize)+1
+        y = math.floor((y - info.gridRenderOffset.y) / info.gridRenderSize)+1
+        local pos = nk.main.posToGridPos(x, y, z)
+        return pos
+    end
+end
+
+function nk.main.getGridPos(ent)
+    if ent.getGridPos then
+        return ent:getGridPos()
+    end
+end
+
+function nk.main.setEntGridPos(ent, gridPos)
+    local entPos = ent.gridPos
+    if entPos then
+        ent.gridPos = gridPos
+    end
+
+    if ent.onUpdate then
+        ent:update()
     end
 end

@@ -9,5 +9,11 @@ function nk.main.defineIngredient(id, eType)
             ent.height = gridInfo.gridRenderSize
         end
     end
+
+    eType.getGridPos = function (ent)
+        if ent.gridPos then
+            return ent.gridPos
+        end
+    end
     nk.main.defineEntity(id, eType)
 end

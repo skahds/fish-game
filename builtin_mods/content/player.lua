@@ -1,6 +1,6 @@
 nk.main.defineEntity("player", {
-    defaultHeight = 50,
-    defaultWidth = 50,
+    defaultHeight = 10,
+    defaultWidth = 10,
 
 })
 

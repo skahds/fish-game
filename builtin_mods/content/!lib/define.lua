@@ -3,7 +3,7 @@ contentLib = {}
 
 
 nk.main.grid = {
-    info = {width = 5, height = 5, buildingZ = 0, ingredientZ = 10, gridRenderSize = 30, gridRenderOffset = {x=100, y=100}},
+    info = {width = 5, height = 5, buildingZ = 0, ingredientZ = 10, gridRenderSize = 32, gridRenderOffset = {x=50, y=50}},
     building = {},
     ingredient = {},
 }

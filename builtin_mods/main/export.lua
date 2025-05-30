@@ -59,37 +59,37 @@ function nk.main.defineEntity(id, eType)
         end
     end
 
-    -- collision system.. should it be here?
-    function entityClass:checkCollision()
-        if self.x and self.y then
-            for i, ent in pairs(nk.main.world) do
-                if ent.x and ent.y then
-                    local tagCheck = false
+    -- -- collision system.. should it be here?
+    -- function entityClass:checkCollision()
+    --     if self.x and self.y then
+    --         for i, ent in pairs(nk.main.world) do
+    --             if ent.x and ent.y then
+    --                 local tagCheck = false
         
-                    for tag, bool in pairs(self.collisionTag) do
-                        if ent.collisionTag[tag] == true then
-                            tagCheck = true
-                            break
-                        end
-                    end
+    --                 for tag, bool in pairs(self.collisionTag) do
+    --                     if ent.collisionTag[tag] == true then
+    --                         tagCheck = true
+    --                         break
+    --                     end
+    --                 end
         
-                    if tagCheck then
-                        if nk.collision.AABB_check(self, ent) then
-                            if self.onCollided then self.onCollided(self, ent) end
-                            if ent.onCollided then ent.onCollided(ent, self) end
-                        end
-                    end
-                end
-            end
-        end
-    end
+    --                 if tagCheck then
+    --                     if nk.collision.AABB_check(self, ent) then
+    --                         if self.onCollided then self.onCollided(self, ent) end
+    --                         if ent.onCollided then ent.onCollided(ent, self) end
+    --                     end
+    --                 end
+    --             end
+    --         end
+    --     end
+    -- end
 
 
     nk.main.entities[id] = entityClass
 end
 
 function nk.main.spawnEntity(id, args)
-    print("spawning" .. id)
+    print("spawning " .. id)
     table.insert(nk.main.world, nk.main.entities[id]:new(args))
     nk.main.world[#nk.main.world].index = #nk.main.world
 end

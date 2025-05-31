@@ -90,13 +90,15 @@ function nk.main.getGridPos(ent)
     end
 end
 
-function nk.main.setEntGridPos(ent, gridPos)
+function nk.main.trySetEntGridPos(ent, gridPos)
     local entPos = ent.gridPos
-    if entPos then
-        ent.gridPos = gridPos
-    end
+    if entPos.z == gridPos.z then
+        if entPos then
+            ent.gridPos = gridPos
+        end
 
-    if ent.onUpdate then
-        ent:update()
+        if ent.onUpdate then
+            ent:update()
+        end
     end
 end

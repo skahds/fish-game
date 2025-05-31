@@ -25,12 +25,9 @@ nk.on("ui:noUIPressed", function ()
         else
             nk.main.setEntGridPos(playerEnt.selectedEntity, newPos)
             nk.main.setEntGridPos(entityChosen, pos)
+            playerEnt.selectedEntity = nil
         end
-        -- local pos = nk.main.getGridPos(entityChosen)
-        -- local playerSelectedEntPos = playerEnt.entityChosen:getPos()
-    end
-
-    if entityChosen then
+    elseif entityChosen then
         playerEnt.selectedEntity = entityChosen
         print("selectedEntity")
     end

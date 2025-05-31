@@ -33,7 +33,7 @@ function gridPos:getZLayerName()
         if self.z == 0 then
             return "building"
         elseif self.z == 10 then
-            return "ingredients"
+            return "ingredient"
         else
             return "other"
         end
@@ -48,9 +48,10 @@ end
 
 function nk.main.gridPosToEnt(gridPos)
     if gridPos.x > 0 and gridPos.x <= nk.main.grid.info.width and
-    gridPos.y > nk.main.grid.info.height and gridPos.y <= 5 then
+    gridPos.y > 0 and gridPos.y <= nk.main.grid.info.height then
         local entity = nk.main.grid[gridPos:getZLayerName()][gridPos.index]
-
+        print("check", entity)
+        
         if entity then
             return entity
         else
@@ -90,15 +91,28 @@ function nk.main.getGridPos(ent)
     end
 end
 
-function nk.main.trySetEntGridPos(ent, gridPos)
+--be extremely careful, make sure target gridPos is empty!
+function nk.main.forceSetEntGridPos(ent, gridPos)
     local entPos = ent.gridPos
     if entPos.z == gridPos.z then
-        if entPos then
-            ent.gridPos = gridPos
-        end
+        ent.gridPos = gridPos
+        nk.main.grid[gridPos:getZLayerName()][entPos.index] = nil
+        nk.main.grid[gridPos:getZLayerName()][gridPos.index] = ent
 
-        if ent.onUpdate then
-            ent:update()
+        if ent.setRealPosToGridPos then
+            ent:setRealPosToGridPos()
         end
+    end
+end
+
+--swaps 2 entities gridPos
+function nk.main.trySwapEntGridPos(ent, ent2)
+    local pos1 = nk.main.getGridPos(ent)
+    local pos2 = nk.main.getGridPos(ent2)
+    if pos1.z == pos2.z then
+        ent.gridPos = pos2
+        ent2.gridPos = pos1
+        nk.main.grid[pos1:getZLayerName()][pos1.index] = ent2
+        nk.main.grid[pos2:getZLayerName()][pos2.index] = ent
     end
 end

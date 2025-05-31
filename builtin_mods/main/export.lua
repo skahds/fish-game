@@ -9,7 +9,17 @@ nk.main.basic_entity = class()
 function nk.main.basic_entity:draw()
     if self.x and self.y and self.height and self.width then
         if self.image then
-            love.graphics.draw(nk.getImage(self.image), self.x, self.y, self.direction or 0, 1, 1)
+            local realImage = nk.getImage(self.image)
+            love.graphics.draw(
+                realImage,
+                self.x,
+                self.y,
+                self.direction or 0,
+                1,
+                1
+                -- realImage:getWidth()/2,
+                -- realImage:getHeight()/2
+            )
         else
             love.graphics.setColor(1, 1, 1)
             love.graphics.rectangle("fill", self.x, self.y, self.width, self.height)
@@ -48,9 +58,13 @@ function nk.main.defineEntity(id, eType)
             end
         end
 
-        if eType.collisionTag == nil then
-            eType.collisionTag = {env=true}
+        if self.onLoad then
+            self:onLoad()
         end
+
+        -- if eType.collisionTag == nil then
+        --     eType.collisionTag = {env=true}
+        -- end
     end
 
     function entityClass:update()
@@ -88,8 +102,17 @@ function nk.main.defineEntity(id, eType)
     nk.main.entities[id] = entityClass
 end
 
-function nk.main.spawnEntity(id, args)
+---spawns an entity in nk.main.world, ret is does it return the entity or not
+---@param id string
+---@param args eType
+function nk.main.spawnEntity(id, args, ret)
+    ret = ret or false
+
     print("spawning " .. id)
     table.insert(nk.main.world, nk.main.entities[id]:new(args))
     nk.main.world[#nk.main.world].index = #nk.main.world
+    
+    if ret == true then
+        return nk.main.world[#nk.main.world]
+    end
 end

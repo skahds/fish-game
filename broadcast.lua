@@ -24,14 +24,14 @@ function nk.on(event, func)
     table.insert(nk.events[event], func)
 end
 
----gets from nk.storage; where i get stuff i like
+---gets from nk.storage; however where i get stuff i like
 ---@param name string
 ---@return unknown
 function nk.getStorage(name)
     return nk.storage[name]
 end
 
----updates nk.storage; where i store stuff i like
+---updates nk.storage; however where i store stuff i like
 ---@param name string
 ---@param newVar any
 function nk.updateStorage(name, newVar)

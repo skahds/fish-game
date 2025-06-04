@@ -10,7 +10,8 @@ function nk.main.basic_entity:draw()
     if self.x and self.y and self.height and self.width then
         if self.image then
             local realImage = nk.getImage(self.image)
-            love.graphics.draw(
+            nk.render(self.renderLayer or 0, function ()
+                love.graphics.draw(
                 realImage,
                 self.x,
                 self.y,
@@ -19,7 +20,8 @@ function nk.main.basic_entity:draw()
                 1
                 -- realImage:getWidth()/2,
                 -- realImage:getHeight()/2
-            )
+                )
+            end)
         else
             love.graphics.setColor(1, 1, 1)
             love.graphics.rectangle("fill", self.x, self.y, self.width, self.height)

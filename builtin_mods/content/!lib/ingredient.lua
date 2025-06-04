@@ -5,11 +5,14 @@ local function setRealPosToGridPos(ent)
         ent.y = gridInfo.gridRenderOffset.y + (ent.gridPos.y-1)*gridInfo.gridRenderSize
         ent.width = gridInfo.gridRenderSize
         ent.height = gridInfo.gridRenderSize
+        ent.renderLayer = 1
     end
 end
 
 function nk.main.defineIngredient(id, eType)
     eType.isIngredient = true
+
+    eType.renderLayer = 1
 
     --[[ updateFunctions is a table that contains all the functions that is called on update with param ent
     , this is so it can add more functions ]]

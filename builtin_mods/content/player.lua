@@ -56,6 +56,7 @@ nk.on("@renderer:renderOutsideCamera", function ()
         local mouse = nk.getStorage("mousePos")
         ent.x = mouse.x - ent.width/2
         ent.y = mouse.y - ent.height/2
+        ent.renderLayer = 10
     end
 end)
 

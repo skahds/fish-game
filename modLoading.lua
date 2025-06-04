@@ -33,6 +33,7 @@ end
 
 -- Call the function for the folder you want to load files from
 requireFolder("builtin_mods/basic_functionality")
+requireFolder("builtin_mods/renderer")
 requireFolder("builtin_mods/ui")
 requireFolder("builtin_mods/main")
 requireFolder("builtin_mods/content")

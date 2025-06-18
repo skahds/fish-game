@@ -1,7 +1,7 @@
-function nk.main.defineIngredient(id, eType)
-    eType.isIngredient = true
+function nk.main.defineBuilding(id, eType)
+    eType.isBuilding = true
 
-    eType.renderLayer = 10
+    eType.renderLayer = 0
 
     --[[ updateFunctions is a table that contains all the functions that is called on update with param ent
     , this is so it can add more functions ]]
@@ -29,12 +29,12 @@ function nk.main.defineIngredient(id, eType)
     nk.main.defineEntity(id, eType)
 end
 
-function nk.main.trySpawnIngredient(entityName, gridPos, force)
+function nk.main.trySpawnBuilding(entityName, gridPos, force)
     force = force or false
 
     local originalGridEnt = nk.main.gridPosToEnt(gridPos)
 
-    print("trySpawnIngredient " .. entityName)
+    print("trySpawnBuilding " .. entityName)
     local ent
     if originalGridEnt == nil then
         ent = nk.main.spawnEntity(entityName, {gridPos=gridPos}, true)
@@ -44,7 +44,6 @@ function nk.main.trySpawnIngredient(entityName, gridPos, force)
     end
     
     if ent then
-        nk.main.grid.ingredient[gridPos.index] = ent
+        nk.main.grid.building[gridPos.index] = ent
     end
-
 end

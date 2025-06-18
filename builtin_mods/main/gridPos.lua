@@ -8,6 +8,12 @@ ingredients have a Z of 10
 building have a Z of 0
 ]]
 
+nk.main.grid = {
+    info = {width = 5, height = 5, buildingZ = 0, ingredientZ = 10, gridRenderSize = 32, gridRenderOffset = {x=50, y=50}},
+    building = {},
+    ingredient = {},
+}
+
 gridPos = class()
 
 function gridPos:init(args)
@@ -29,10 +35,11 @@ function gridPos:setPos(gridPos)
 end
 
 function gridPos:getZLayerName()
+    -- this is really hacky
     if self.z then
-        if self.z == 0 then
+        if self.z == nk.main.grid.info.buildingZ then
             return "building"
-        elseif self.z == 10 then
+        elseif self.z == nk.main.grid.info.ingredientZ then
             return "ingredient"
         else
             return "other"
@@ -70,6 +77,17 @@ function nk.main.realPosToEnt(pos)
                 return entity
             end
         end
+    end
+end
+
+function nk.main.setRealPosToGridPos(ent)
+    if ent.gridPos then
+        local gridInfo = nk.main.grid.info
+        ent.x = gridInfo.gridRenderOffset.x + (ent.gridPos.x-1)*gridInfo.gridRenderSize
+        ent.y = gridInfo.gridRenderOffset.y + (ent.gridPos.y-1)*gridInfo.gridRenderSize
+        ent.width = gridInfo.gridRenderSize
+        ent.height = gridInfo.gridRenderSize
+        ent.renderLayer = ent.gridPos.z
     end
 end
 

@@ -12,3 +12,7 @@ end)
 function nk.components.heat.heatUp(ent, val)
     ent.components.heat = ent.components.heat + val * (nk.getStorage("dt") or 0)
 end
+
+function nk.components.heat.getHeat(ent)
+    return ent.components.heat
+end

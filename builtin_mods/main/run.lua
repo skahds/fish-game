@@ -47,6 +47,7 @@ nk.on("@renderer:render", function (dt)
         for index, entity in ipairs(nk.main[layers]) do
             if entity.draw then
                 entity:draw()
+                nk.call("nk:drawEntity", entity)
             end
         end
     end

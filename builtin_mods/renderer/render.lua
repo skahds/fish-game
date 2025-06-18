@@ -15,6 +15,7 @@ nk.on("@renderer:render", function ()
     for i, layer in ipairs(renderKeys) do
         for _, func in ipairs(renderTable[layer]) do
             func()
+            love.graphics.setColor(1, 1, 1)
         end
     end
 

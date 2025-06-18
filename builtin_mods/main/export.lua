@@ -113,8 +113,10 @@ function nk.main.spawnEntity(id, args, ret)
     print("spawning " .. id)
     table.insert(nk.main.world, nk.main.entities[id]:new(args))
     nk.main.world[#nk.main.world].index = #nk.main.world
+    local ent = nk.main.world[#nk.main.world]
+    nk.call("nk:entitySpawned", ent)
     
     if ret == true then
-        return nk.main.world[#nk.main.world]
+        return ent
     end
 end

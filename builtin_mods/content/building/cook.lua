@@ -4,7 +4,7 @@ nk.main.defineBuilding("stove", {
 
     onUpdateActivate = function (ent, ingredientEnt)
         if ingredientEnt then
-            -- cook, probably need to make components
+            nk.components.heat.heatUp(ingredientEnt, 1)
         end
     end
 })

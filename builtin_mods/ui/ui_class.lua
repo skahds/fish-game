@@ -1,5 +1,5 @@
 function nk.ui.defineUI(id, eType)
-    local nkui = class(nk.main.basic_entity)
+    local nkui = class()
 
     function nkui:init(args)
         for k, v in pairs(eType) do
@@ -22,7 +22,12 @@ function nk.ui.defineUI(id, eType)
             end
         end
     end
-    table.insert(nk.main.uiClasses[id], nkui)
+
+    function nkui:delete()
+        table.insert(nk.ui.deleteQueue, self)
+    end
+
+    nk.ui.uiClasses[id] = nkui
 end
 
 --[[

@@ -6,12 +6,20 @@ ui.add(ui), does table.insert UI, so the order goes on top
 nk.ui = {}
 nk.ui.uiClasses = {}
 nk.ui.world = {}
+nk.ui.deleteQueue = {}
 
-function nk.ui.spawnUI(id, ret)
+function nk.ui.spawnUI(id, args, ret)
     ret = ret or false
 
-    table.insert(nk.ui.world, nk.ui.uiClasses[id]:new())
+    table.insert(nk.ui.world, nk.ui.uiClasses[id]:new(args))
     print("createUI " .. id)
+
+    local ent = nk.ui.world[#nk.ui.world]
+    ent.index = #nk.ui.world
+
+    if ret then
+        return ent
+    end
 end
 
 --[[

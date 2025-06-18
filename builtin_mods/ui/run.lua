@@ -26,3 +26,26 @@ nk.on("@renderer:renderOutsideCamera", function ()
     end
 end)
 
+nk.on("@update", function ()
+    for index, entity in ipairs(nk.ui.world) do
+        if entity.update then
+            entity:update()
+        end
+    end
+
+    for i=#nk.ui.deleteQueue, 1, -1 do
+        local entity = nk.ui.deleteQueue[i]
+        local nkw = nk.ui.world
+
+        --swaps the about to delete ent and the last ent, then deletes it
+        if entity.index ~= #nkw then
+            print(entity.index)
+            nkw[entity.index], nkw[#nkw] = nkw[#nkw], nkw[entity.index]
+            nkw[entity.index].index, nkw[#nkw].index = nkw[#nkw].index, nkw[entity.index].index
+        end
+        table.remove(nkw, #nkw)
+    end
+
+    nk.ui.deleteQueue = {}
+end)
+

@@ -20,12 +20,13 @@ function nk.main.defineIngredient(id, eType)
 
     eType.setRealPosToGridPos = nk.main.setRealPosToGridPos
 
-
     eType.getGridPos = function (ent)
         if ent.gridPos then
             return ent.gridPos
         end
     end
+
+
     nk.main.defineEntity(id, eType)
 end
 

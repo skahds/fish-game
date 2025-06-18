@@ -57,7 +57,6 @@ function nk.main.gridPosToEnt(gridPos)
     if gridPos.x > 0 and gridPos.x <= nk.main.grid.info.width and
     gridPos.y > 0 and gridPos.y <= nk.main.grid.info.height then
         local entity = nk.main.grid[gridPos:getZLayerName()][gridPos.index]
-        print("check", entity)
         
         if entity then
             return entity

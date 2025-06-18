@@ -6,6 +6,11 @@ function nk.main.defineBuilding(id, eType)
     --[[ updateFunctions is a table that contains all the functions that is called on update with param ent
     , this is so it can add more functions ]]
     eType.updateFunctions = {}
+
+    -- if eType.onUpdateActivate then
+    --     table.insert(eType.updateFunctions, eType.onUpdateActivate)
+    -- end
+
     eType.loadFunctions = {nk.main.setRealPosToGridPos}
     eType.onUpdate = function (ent)
         for _, func in pairs(ent.updateFunctions) do
@@ -20,12 +25,13 @@ function nk.main.defineBuilding(id, eType)
 
     eType.setRealPosToGridPos = nk.main.setRealPosToGridPos
 
-
     eType.getGridPos = function (ent)
         if ent.gridPos then
             return ent.gridPos
         end
     end
+
+
     nk.main.defineEntity(id, eType)
 end
 
@@ -47,3 +53,16 @@ function nk.main.trySpawnBuilding(entityName, gridPos, force)
         nk.main.grid.building[gridPos.index] = ent
     end
 end
+
+
+--calling the update for all building
+nk.on("@update", function ()
+    for i, building in pairs(nk.main.grid.building) do
+        if building.onUpdateActivate then
+            local buildingPos = nk.main.getGridPos(building)
+            local ingredient = nk.main.grid.ingredient[buildingPos.index]
+
+            building.onUpdateActivate(building, ingredient)
+        end
+    end
+end)

@@ -8,7 +8,7 @@ end)
 ---@param ent any
 ---@param val any
 function nk.components.value.change(ent, val)
-    ent.components.value = ent.components.value + val * (nk.getStorage("dt") or 0)
+    ent.components.value = ent.components.value + val
 end
 
 function nk.components.value.get(ent)

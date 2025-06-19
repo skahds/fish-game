@@ -15,6 +15,8 @@ local function drawBackBox(ent)
     local count = 0
     local sizeX = 0
     local sizeY = 0
+    local lineCount = 0
+
     for _, descriptionKey in ipairs(descriptionKey) do
         local descriptionFunc = descriptions[descriptionKey]
         local text = descriptionFunc(ent)
@@ -26,12 +28,14 @@ local function drawBackBox(ent)
                 sizeX = newSizeX
             end
             sizeY = font:getHeight(text)
+            lineCount = lineCount + select(2, string.gsub(text, "\n", "")) + 1
         end
     end
+    
     --draw nice backbox
     local xOffset = nk.main.grid.info.gridRenderSize
     love.graphics.setColor(0.2, 0.2, 0.2, 0.5)
-    love.graphics.rectangle("fill", ent.x+xOffset, ent.y, sizeX, sizeY*count)
+    love.graphics.rectangle("fill", ent.x+xOffset, ent.y, sizeX, sizeY*lineCount)
     love.graphics.setColor(1, 1, 1)
 end
 
@@ -42,6 +46,7 @@ local function drawDescription(ent)
             drawBackBox(ent)
 
             --draw the actual text
+            local lineCount = 0
             local count = 0
             for _, descriptionKey in ipairs(descriptionKey) do
                 local descriptionFunc = descriptions[descriptionKey]
@@ -49,7 +54,9 @@ local function drawDescription(ent)
                 if text then
                     local xOffset = nk.main.grid.info.gridRenderSize
                     local font = nk.getStorage("defaultFont")
-                    local yOffset = count*font:getHeight(text)
+                    
+                    local yOffset = lineCount*font:getHeight(text)
+                    lineCount = lineCount + select(2, string.gsub(text, "\n", "")) + 1
                     
                     love.graphics.print(text, ent.x+xOffset, ent.y+yOffset)
                     count = count + 1

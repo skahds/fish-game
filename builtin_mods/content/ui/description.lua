@@ -1,5 +1,15 @@
 nk.main.defineDescription(1, function (ent)
     return "Name: " .. ent.name
+    .. "\n----------"
+end)
+
+nk.main.defineDescription(5, function (ent)
+    if ent.actionTable then
+        if ent.actionTable.onCooked then
+            return "When temperature reaches " .. ent.components.heatLimit .. ":\n"
+            ..ent.actionTable.onCooked.description
+        end
+    end
 end)
 
 nk.main.defineDescription(50, function (ent)

@@ -1,4 +1,4 @@
-nk.target.adjacent = {
+nk.target.newTarget("adjacent", {
     name = "adjacent",
     relativeCoords = {
         {0, 1},
@@ -6,4 +6,4 @@ nk.target.adjacent = {
         {0, -1},
         {-1, 0}
     }
-}
+})

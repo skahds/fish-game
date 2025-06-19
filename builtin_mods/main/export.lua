@@ -31,6 +31,7 @@ function nk.main.basic_entity:draw()
 end
 
 function nk.main.basic_entity:delete()
+    nk.call("nk:entityDeleted", self)
     table.insert(nk.main.deleteQueue, self)
 end
 

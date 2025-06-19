@@ -60,6 +60,14 @@ nk.on("@renderer:renderOutsideCamera", function ()
     end
 end)
 
+nk.on("nk:entityDeleted", function (ent)
+    local playerEnt = nk.getStorage("playerEnt")
+    if playerEnt.selectedEntity and playerEnt.selectedEntity.index == ent.index then
+        playerEnt.selectedEntity = nil
+    end
+end)
+
+
 
 nk.on("@load", nk.main.spawnEntity("player", {x=10, y=10}))
 nk.updateStorage("playerEnt", nk.main.world[#nk.main.world])

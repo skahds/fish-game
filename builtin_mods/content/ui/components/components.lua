@@ -1,6 +1,6 @@
 --heat
 nk.on("nk:drawEntity", function (ent)
-    nk.render(50, function ()
+    nk.render(40, function ()
         local heat = nk.components.heat.get(ent)
         if heat then
             local size = 1

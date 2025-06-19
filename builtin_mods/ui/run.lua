@@ -14,7 +14,7 @@ nk.on("@mouse:released", function (button)
     end
 
     if didPressed == false then
-        nk.call("ui:noUIPressed")
+        nk.call("ui:noUIPressed", button)
     end
 end)
 

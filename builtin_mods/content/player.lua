@@ -6,12 +6,13 @@ nk.main.defineEntity("player", {
 
 
 --what is this mess dawg
-nk.on("ui:noUIPressed", function ()
+nk.on("ui:noUIPressed", function (button)
     local playerEnt = nk.getStorage("playerEnt")
     local mouse = nk.getStorage("mousePos")
+
     
-    local chosenGridPos = nk.main.realPosToGridPos(mouse.x, mouse.y)
-    local entityChosen = nk.main.gridPosToEnt(chosenGridPos)    
+    local chosenGridPos = nk.main.realPosToGridPos(mouse.x, mouse.y, gridPosZ)
+    local entityChosen = nk.main.gridPosToEnt(chosenGridPos)
 
     if playerEnt.selectedEntity then
         local playerSelectedPos = nk.main.getGridPos(playerEnt.selectedEntity)
@@ -20,24 +21,22 @@ nk.on("ui:noUIPressed", function ()
         if chosenGridPos.x > 0 and chosenGridPos.x <= nk.main.grid.info.width and
         chosenGridPos.y > 0 and chosenGridPos.y <= nk.main.grid.info.height then
 
-            if playerSelectedPos ~= nil then
-                if entityChosen == nil then
-                    nk.main.forceSetEntGridPos(playerEnt.selectedEntity, chosenGridPos)
-                    playerEnt.selectedEntity = nil
+            if entityChosen == nil then
+                nk.main.forceSetEntGridPos(playerEnt.selectedEntity, chosenGridPos)
+                playerEnt.selectedEntity = nil
 
-                    -- make sure they have a gridPos so you can't select a random ent
-                elseif nk.main.getGridPos(entityChosen) and entityChosen.index ~= playerEnt.selectedEntity.index then
-                    nk.main.trySwapEntGridPos(playerEnt.selectedEntity, entityChosen)
-                    playerEnt.selectedEntity:setRealPosToGridPos()
-                    
-                    -- changes the player's selected ent
-                    playerEnt.selectedEntity = entityChosen
+                -- make sure they have a gridPos so you can't select a random ent
+            elseif nk.main.getGridPos(entityChosen) and entityChosen.index ~= playerEnt.selectedEntity.index then
+                nk.main.trySwapEntGridPos(playerEnt.selectedEntity, entityChosen)
+                playerEnt.selectedEntity:setRealPosToGridPos()
+                
+                -- changes the player's selected ent
+                playerEnt.selectedEntity = entityChosen
 
-                    -- make sure it can't swap with itself
-                elseif entityChosen.index == playerEnt.selectedEntity.index then
-                    playerEnt.selectedEntity:setRealPosToGridPos()
-                    playerEnt.selectedEntity = nil
-                end
+                -- make sure it can't swap with itself
+            elseif entityChosen.index == playerEnt.selectedEntity.index then
+                playerEnt.selectedEntity:setRealPosToGridPos()
+                playerEnt.selectedEntity = nil
             end
 
         else

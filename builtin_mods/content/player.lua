@@ -10,6 +10,7 @@ nk.on("ui:noUIPressed", function (button)
     local playerEnt = nk.getStorage("playerEnt")
     local mouse = nk.getStorage("mousePos")
 
+    local gridPosZ = 10
     
     local chosenGridPos = nk.main.realPosToGridPos(mouse.x, mouse.y, gridPosZ)
     local entityChosen = nk.main.gridPosToEnt(chosenGridPos)

@@ -6,8 +6,12 @@ local function drawEntTargetShape(ent)
     for _, t in pairs(ent.actionTable) do
         if t.shape then
             for _, coord in ipairs(t.shape.relativeCoords) do
-                local x = ent.x + coord.x * nk.main.grid.info.gridRenderSize
-                local y = ent.y + coord.y * nk.main.grid.info.gridRenderSize
+                local gridSize = nk.main.grid.info.gridRenderSize
+
+                -- the floor is to make it snap into grids
+                local x = math.floor(ent.x/gridSize)*gridSize + coord.x * gridSize + gridSize/2
+                local y = math.floor(ent.y/gridSize)*gridSize + coord.y * gridSize + gridSize/2
+
                 nk.render(91, function ()
                     love.graphics.draw(nk.getImage("target_outline"), x, y)
                 end)

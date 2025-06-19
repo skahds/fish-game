@@ -14,7 +14,7 @@ end)
 
 nk.main.defineDescription(50, function (ent)
     local heat = nk.components.heat.get(ent)
-    if heat and heat > 0 then
+    if heat and heat ~= 0 then
         return "Temperature: " .. math.floor(heat * 10)/10
     end
 end)

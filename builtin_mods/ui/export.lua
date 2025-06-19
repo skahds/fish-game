@@ -25,19 +25,3 @@ function nk.ui.spawnUI(id, args, ret)
         return ent
     end
 end
-
---[[
-function nk.main.spawnEntity(id, args, ret)
-    ret = ret or false
-
-    print("spawning " .. id)
-    table.insert(nk.main.world, nk.main.entities[id]:new(args))
-    nk.main.world[#nk.main.world].index = #nk.main.world
-    local ent = nk.main.world[#nk.main.world]
-    nk.call("nk:entitySpawned", ent)
-    
-    if ret == true then
-        return ent
-    end
-end
-]]

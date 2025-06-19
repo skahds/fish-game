@@ -42,7 +42,6 @@ function nk.main.trySpawnBuilding(entityName, gridPos, force, ret)
 
     local originalGridEnt = nk.main.gridPosToEnt(gridPos)
 
-    print("trySpawnBuilding " .. entityName)
     local ent
     if originalGridEnt == nil then
         ent = nk.main.spawnEntity(entityName, {gridPos=gridPos}, true)

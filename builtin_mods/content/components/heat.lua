@@ -4,7 +4,8 @@ nk.newComponent("heat")
 
 nk.on("nk:entitySpawned", function (ent)
     ent.components.heat = ent.components.heat or 0
-    ent.components.heatLimit = ent.components.heatLimit or 100
+    ent.components.heatLimit = ent.components.heatLimit or 40
+    ent.components.freezingPoint = ent.components.freezingPoint or 0
 end)
 
 ---change the heat of an ent
@@ -19,10 +20,13 @@ function nk.components.heat.get(ent)
 end
 
 nk.on("nk:updateEntity", function (ent)
-    if ent.components and ent.components.heat and ent.actionTable and ent.actionTable.onCooked then
+    if ent.components and ent.components.heat and ent.actionTable then
         local heat = nk.components.heat.get(ent)
-        if heat > ent.components.heatLimit then
+        if heat > ent.components.heatLimit and ent.actionTable.onCooked then
             nk.main.activateEntity(ent.actionTable.onCooked, ent)
+        end
+        if heat < ent.components.freezingPoint and ent.actionTable.onFrozen then
+            nk.main.activateEntity(ent.actionTable.onFrozen, ent)
         end
     end
 end)

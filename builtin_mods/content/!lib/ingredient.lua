@@ -37,7 +37,6 @@ function nk.main.trySpawnIngredient(entityName, gridPos, force, ret)
 
     local originalGridEnt = nk.main.gridPosToEnt(gridPos)
 
-    print("trySpawnIngredient " .. entityName)
     local ent
     if originalGridEnt == nil then
         ent = nk.main.spawnEntity(entityName, {gridPos=gridPos}, true)

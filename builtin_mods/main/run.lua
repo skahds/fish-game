@@ -11,8 +11,9 @@ local lazyUpdateCount = 0
 
 local layers = {"world", "grid"}
 nk.on("@update", function (dt)
-    for i, layers in ipairs(layers) do
-        for index, entity in ipairs(nk.main[layers]) do
+    for _, layers in ipairs(layers) do
+        for i=#nk.main[layers], 1, -1 do
+            local entity = nk.main[layers][i]
             if entity.update then
                 entity:update()
                 nk.call("nk:updateEntity", entity)
@@ -23,12 +24,16 @@ nk.on("@update", function (dt)
     for i=#nk.main.deleteQueue, 1, -1 do
         local entity = nk.main.deleteQueue[i]
         local nkw = nk.main.world
+        
 
         --swaps the about to delete ent and the last ent, then deletes it
         if entity.index ~= #nkw then
+            local lastEntity = nkw[#nkw]
+
             nkw[entity.index], nkw[#nkw] = nkw[#nkw], nkw[entity.index]
             nkw[entity.index].index, nkw[#nkw].index = nkw[#nkw].index, nkw[entity.index].index
         end
+
         table.remove(nkw, #nkw)
     end
 

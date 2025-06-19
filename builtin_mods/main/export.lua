@@ -32,7 +32,16 @@ end
 
 function nk.main.basic_entity:delete()
     nk.call("nk:entityDeleted", self)
-    table.insert(nk.main.deleteQueue, self)
+    local isEmpty = true
+    for _, ent in pairs(nk.main.deleteQueue) do
+        if ent.index == self.index then
+            isEmpty = false
+            break
+        end
+    end
+    if isEmpty == true then
+        table.insert(nk.main.deleteQueue, self)
+    end
 end
 
 
@@ -64,6 +73,7 @@ function nk.main.defineEntity(id, eType)
         if self.onLoad then
             self:onLoad()
         end
+        self.components = args.components or {}
 
         -- if eType.collisionTag == nil then
         --     eType.collisionTag = {env=true}
@@ -111,8 +121,9 @@ end
 function nk.main.spawnEntity(id, args, ret)
     ret = ret or false
 
-    print("spawning " .. id)
-    table.insert(nk.main.world, nk.main.entities[id]:new(args))
+    local preEnt = nk.main.entities[id]
+    local newEnt = preEnt:new(args)
+    table.insert(nk.main.world, newEnt)
     nk.main.world[#nk.main.world].index = #nk.main.world
     local ent = nk.main.world[#nk.main.world]
     nk.call("nk:entitySpawned", ent)

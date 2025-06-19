@@ -3,6 +3,7 @@ function nk.main.transformEntity(ent, newEntId, ret)
     local newEnt
     local gridPos = nk.main.getGridPos(ent)
     if ent.isIngredient then
+        ent:delete()
         newEnt = nk.main.trySpawnIngredient(newEntId, gridPos, true, true)
     end
     if ent.isBuilding then

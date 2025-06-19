@@ -4,7 +4,7 @@ nk.on("nk:entitySpawned", function (ent)
     ent.components.value = ent.components.value or 0
 end)
 
----change the heat of an ent
+---change the value of an ent
 ---@param ent any
 ---@param val any
 function nk.components.value.change(ent, val)

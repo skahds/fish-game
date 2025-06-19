@@ -1,3 +1,7 @@
+nk.updateStorage("defaultFont", love.graphics.newFont(16))
+love.graphics.setFont(nk.getStorage("defaultFont"))
+
+
 --[[
 Have table UI, each table inside will contain x, y, w, h (no circular button)
 ui.add(ui), does table.insert UI, so the order goes on top

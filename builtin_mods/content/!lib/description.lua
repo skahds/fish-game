@@ -11,25 +11,52 @@ function nk.main.defineDescription(order, desc)
     table.sort(descriptionKey)
 end
 
+local function drawBackBox(ent)
+    local count = 0
+    local sizeX = 0
+    local sizeY = 0
+    for _, descriptionKey in ipairs(descriptionKey) do
+        local descriptionFunc = descriptions[descriptionKey]
+        local text = descriptionFunc(ent)
+        if text then
+            count = count + 1
+            local font = nk.getStorage("defaultFont")
+            local newSizeX = font:getWidth(text)
+            if sizeX < newSizeX then
+                sizeX = newSizeX
+            end
+            sizeY = font:getHeight(text)
+        end
+    end
+    --draw nice backbox
+    local xOffset = nk.main.grid.info.gridRenderSize
+    love.graphics.setColor(0.2, 0.2, 0.2, 0.5)
+    love.graphics.rectangle("fill", ent.x+xOffset, ent.y, sizeX, sizeY*count)
+    love.graphics.setColor(1, 1, 1)
+end
+
 
 local function drawDescription(ent)
     if ent.x and ent.y then
         nk.render(70, function ()
-            -- love.graphics.print(ent.name, ent.x+32, ent.y)
-            local count = 0
+            drawBackBox(ent)
 
+            --draw the actual text
+            local count = 0
             for _, descriptionKey in ipairs(descriptionKey) do
                 local descriptionFunc = descriptions[descriptionKey]
                 local text = descriptionFunc(ent)
                 if text then
                     local xOffset = nk.main.grid.info.gridRenderSize
-                    local yOffset = count*12
-
+                    local font = nk.getStorage("defaultFont")
+                    local yOffset = count*font:getHeight(text)
+                    
                     love.graphics.print(text, ent.x+xOffset, ent.y+yOffset)
-
                     count = count + 1
                 end
             end
+
+
         end)
     end
 end

@@ -7,10 +7,13 @@ local function drawEntTargetShape(ent)
         if t.shape then
             for _, coord in ipairs(t.shape.relativeCoords) do
                 local gridSize = nk.main.grid.info.gridRenderSize
+                local gridOffset = nk.main.grid.info.gridRenderOffset
 
                 -- the floor is to make it snap into grids
-                local x = math.floor(ent.x/gridSize)*gridSize + coord.x * gridSize + gridSize/2
-                local y = math.floor(ent.y/gridSize)*gridSize + coord.y * gridSize + gridSize/2
+                local originalEntOffsetX = math.floor((mouse.x - gridOffset.x)/gridSize)*gridSize
+                local originalEntOffsetY = math.floor((mouse.y - gridOffset.y)/gridSize)*gridSize
+                local x = originalEntOffsetX + coord.x * gridSize + gridOffset.x
+                local y = originalEntOffsetY + coord.y * gridSize + gridOffset.y
 
                 nk.render(91, function ()
                     love.graphics.draw(nk.getImage("target_outline"), x, y)

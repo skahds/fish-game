@@ -15,6 +15,7 @@ nk.on("@update", function (dt)
         for index, entity in ipairs(nk.main[layers]) do
             if entity.update then
                 entity:update()
+                nk.call("nk:updateEntity", entity)
             end
         end
     end

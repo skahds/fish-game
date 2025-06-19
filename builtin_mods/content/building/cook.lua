@@ -4,7 +4,7 @@ nk.main.defineBuilding("stove", {
 }, {
     onUpdateActivate = function (ent, ingredientEnt)
         if ingredientEnt then
-            nk.components.heat.change(ingredientEnt, 1)
+            nk.components.heat.change(ingredientEnt, 10 * (nk.getStorage("dt") or 0))
         end
     end
 })

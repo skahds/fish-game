@@ -3,7 +3,7 @@ nk.on("nk:drawEntity", function (ent)
     nk.render(50, function ()
         local heat = nk.components.heat.get(ent)
         if heat then
-            local size = 10
+            local size = 1
             love.graphics.setColor(1, 0.6, 0.6)
             love.graphics.rectangle("fill", ent.x+16-heat*(size/2), ent.y+32, heat*size, 10)
         end

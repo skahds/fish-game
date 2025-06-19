@@ -6,11 +6,13 @@ nk.main.defineIngredient("cheese", {
     onCookedDescription = "Adjacent food gains $1 value",
     onCooked = function (ent)
         local selfPos = nk.main.getGridPos(ent)
-        nk.main.trySpawnIngredient("melted_cheese", selfPos, true)
+        local newEnt = nk.main.transformEntity(ent, "melted_cheese", true)
+        nk.components.heat.change(newEnt, 40)
     end
 })
 
 nk.main.defineIngredient("melted_cheese", {
     name = "Melted Cheese",
     image = "melted_cheese",
+    components = {value=4},
 })

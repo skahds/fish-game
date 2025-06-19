@@ -31,8 +31,9 @@ function nk.main.defineIngredient(id, eType, actionTable)
     nk.main.defineEntity(id, eType)
 end
 
-function nk.main.trySpawnIngredient(entityName, gridPos, force)
+function nk.main.trySpawnIngredient(entityName, gridPos, force, ret)
     force = force or false
+    ret = ret or false
 
     local originalGridEnt = nk.main.gridPosToEnt(gridPos)
 
@@ -49,4 +50,7 @@ function nk.main.trySpawnIngredient(entityName, gridPos, force)
         nk.main.grid.ingredient[gridPos.index] = ent
     end
 
+    if ret then
+        return ent
+    end
 end

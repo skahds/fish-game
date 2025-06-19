@@ -36,8 +36,9 @@ function nk.main.defineBuilding(id, eType, actionTable)
     nk.main.defineEntity(id, eType)
 end
 
-function nk.main.trySpawnBuilding(entityName, gridPos, force)
+function nk.main.trySpawnBuilding(entityName, gridPos, force, ret)
     force = force or false
+    ret = ret or false
 
     local originalGridEnt = nk.main.gridPosToEnt(gridPos)
 
@@ -52,6 +53,10 @@ function nk.main.trySpawnBuilding(entityName, gridPos, force)
     
     if ent then
         nk.main.grid.building[gridPos.index] = ent
+    end
+
+    if ret then
+        return ent
     end
 end
 

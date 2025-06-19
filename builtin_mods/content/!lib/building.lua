@@ -1,5 +1,6 @@
-function nk.main.defineBuilding(id, eType)
+function nk.main.defineBuilding(id, eType, actionTable)
     eType.isBuilding = true
+    eType.actionTable = actionTable or {}
 
     eType.renderLayer = 0
 
@@ -58,11 +59,11 @@ end
 --calling the update for all building
 nk.on("@update", function ()
     for i, building in pairs(nk.main.grid.building) do
-        if building.onUpdateActivate then
+        if building.actionTable.onUpdateActivate then
             local buildingPos = nk.main.getGridPos(building)
             local ingredient = nk.main.grid.ingredient[buildingPos.index]
 
-            building.onUpdateActivate(building, ingredient)
+            building.actionTable.onUpdateActivate(building, ingredient)
         end
     end
 end)

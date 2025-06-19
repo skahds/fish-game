@@ -1,5 +1,6 @@
-function nk.main.defineIngredient(id, eType)
+function nk.main.defineIngredient(id, eType, actionTable)
     eType.isIngredient = true
+    eType.actionTable = actionTable or {}
 
     eType.renderLayer = 10
 

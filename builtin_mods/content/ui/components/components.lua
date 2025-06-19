@@ -1,7 +1,7 @@
 --heat
 nk.on("nk:drawEntity", function (ent)
     nk.render(50, function ()
-        local heat = nk.components.heat.getHeat(ent)
+        local heat = nk.components.heat.get(ent)
         if heat then
             local size = 10
             love.graphics.setColor(1, 0.6, 0.6)

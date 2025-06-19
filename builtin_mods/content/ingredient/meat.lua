@@ -1,9 +1,9 @@
 nk.main.defineIngredient("chicken_meat", {
-    name = "chicken_meat",
+    name = "Chicken meat",
     image = "meat",
 })
 
 nk.main.defineIngredient("vegetable", {
-    name = "vegetable",
+    name = "Vegetable",
     image = "vegetable",
 })

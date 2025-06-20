@@ -44,8 +44,20 @@ function nk.main.basic_entity:delete()
     end
 end
 
+-- i'm sure 99% this is a bad idea:
+local function copyTable(t)
+    local newTable = {}
+    for k, v in pairs(t) do
+        if type(v) ~= "table" then
+            newTable[k] = v
+        else
+            newTable[k] = copyTable(v)
+        end
+    end
+    return newTable
+end
 
--- name, image, onUpdate (contains ai to go to bait)
+-- name, image, onUpdate
 
 ---defines an entity at nk.main.entities
 ---@param id string
@@ -54,11 +66,21 @@ function nk.main.defineEntity(id, eType)
     local entityClass = class(nk.main.basic_entity)
     function entityClass:init(args)
         for k, v in pairs(eType) do
-            self[k] = v
+            if type(v) == "table" then
+                self[k] = copyTable(v)
+            else
+                self[k] = v
+            end
         end
+
         for k, v in pairs(args) do
-            self[k] = v
+            if type(v) == "table" then
+                self[k] = copyTable(v)
+            else
+                self[k] = v
+            end
         end
+
         self.width = self.width or self.defaultWidth
         self.height = self.height or self.defaultHeight
 
@@ -73,7 +95,7 @@ function nk.main.defineEntity(id, eType)
         if self.onLoad then
             self:onLoad()
         end
-        self.components = args.components or {}
+        self.components = self.components or {}
 
         -- if eType.collisionTag == nil then
         --     eType.collisionTag = {env=true}

@@ -1,18 +1,18 @@
 utils = {}
 
 function utils.copy(t)
-  local copy = {}
+    local copy = {}
 
-  for k, v in pairs(t) do
-    copy[k] = v
-  end
+    for k, v in pairs(t) do
+        copy[k] = v
+    end
 
-  local mt = getmetatable(t)
-  if mt then
-    setmetatable(copy, mt)
-  end
+    local mt = getmetatable(t)
+    if mt then
+        setmetatable(copy, mt)
+    end
 
-  return copy
+    return copy
 end
 
 function utils.deepCopy(original)

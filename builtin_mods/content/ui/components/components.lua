@@ -7,7 +7,7 @@ nk.on("nk:drawEntity", function (ent)
             if heat > 0 then
                 love.graphics.setColor(0.8+heat/100, 0.5, 0.5)
             else
-                love.graphics.setColor(0.8, 0.8, 0.9+heat/100)
+                love.graphics.setColor(0.8, 0.8, 0.9-heat/100)
             end
             love.graphics.rectangle("fill", ent.x+16-heat*(size/2), ent.y+32, heat*size, 10)
         end

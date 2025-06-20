@@ -16,17 +16,30 @@ function nk.components.heat.change(ent, val)
 end
 
 function nk.components.heat.get(ent)
-    return ent.components.heat
+    if ent.components then
+        return ent.components.heat
+    end
 end
 
 nk.on("nk:updateEntity", function (ent)
-    if ent.components and ent.components.heat and ent.actionTable then
+    if ent.components and ent.components.heat then
+
         local heat = nk.components.heat.get(ent)
-        if heat > ent.components.heatLimit and ent.actionTable.onCooked then
-            nk.main.activateEntity(ent.actionTable.onCooked, ent)
+        if ent.actionTable then
+            if heat > ent.components.heatLimit and ent.actionTable.onCooked then
+                nk.main.activateEntity(ent.actionTable.onCooked, ent)
+            end
+            if heat < ent.components.freezingPoint and ent.actionTable.onFrozen then
+                nk.main.activateEntity(ent.actionTable.onFrozen, ent)
+            end
         end
-        if heat < ent.components.freezingPoint and ent.actionTable.onFrozen then
-            nk.main.activateEntity(ent.actionTable.onFrozen, ent)
+
+        if heat ~= 0 then
+            local dt = nk.getStorage("dt")
+            local change = -heat/100 * dt
+            nk.components.heat.change(ent, change)
         end
+        
     end
+
 end)

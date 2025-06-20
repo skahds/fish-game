@@ -5,7 +5,7 @@ end)
 
 nk.main.defineDescription(5, function (ent)
     if ent.actionTable then
-        if ent.actionTable.onCooked then
+        if ent.actionTable.onCooked and ent.actionTable.onCooked.description then
             return "When temperature reaches " .. ent.components.heatLimit .. ":\n"
             ..ent.actionTable.onCooked.description
         end
@@ -14,7 +14,7 @@ end)
 
 nk.main.defineDescription(6, function (ent)
     if ent.actionTable then
-        if ent.actionTable.onFrozen then
+        if ent.actionTable.onFrozen and ent.actionTable.onFrozen.description then
             return "When temperature reaches " .. ent.components.freezingPoint .. ":\n"
             ..ent.actionTable.onFrozen.description
         end

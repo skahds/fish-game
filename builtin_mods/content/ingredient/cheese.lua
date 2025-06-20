@@ -3,7 +3,7 @@ nk.main.defineIngredient("cheese", {
     image = "cheese",
     components = {heatLimit = 40},
 }, {
-    onCooked = {description = "Transform into Melted Cheese.\nTarget gains $2",
+    onCooked = {description = "Transform into Melted Cheese.\nTarget gains $2.",
     shape = nk.target.adjacent,
     targetActivate = function (ent, targetEnt)
         local selfPos = nk.main.getGridPos(ent)

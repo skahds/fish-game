@@ -44,19 +44,6 @@ function nk.main.basic_entity:delete()
     end
 end
 
--- i'm sure 99% this is a bad idea:
-local function copyTable(t)
-    local newTable = {}
-    for k, v in pairs(t) do
-        if type(v) ~= "table" then
-            newTable[k] = v
-        else
-            newTable[k] = copyTable(v)
-        end
-    end
-    return newTable
-end
-
 -- name, image, onUpdate
 
 ---defines an entity at nk.main.entities
@@ -67,7 +54,7 @@ function nk.main.defineEntity(id, eType)
     function entityClass:init(args)
         for k, v in pairs(eType) do
             if type(v) == "table" then
-                self[k] = copyTable(v)
+                self[k] = deepCopy(v)
             else
                 self[k] = v
             end
@@ -75,7 +62,7 @@ function nk.main.defineEntity(id, eType)
 
         for k, v in pairs(args) do
             if type(v) == "table" then
-                self[k] = copyTable(v)
+                self[k] = deepCopy(v)
             else
                 self[k] = v
             end

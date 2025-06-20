@@ -1,7 +1,7 @@
 nk.main.defineIngredient("cheese", {
     name = "cheese",
     image = "cheese",
-    components = {heatLimit = 30},
+    components = {heatLimit = 40},
 }, {
     onCooked = {description = "Transform into Melted Cheese.\nTarget gains $2",
     shape = nk.target.adjacent,
@@ -12,7 +12,7 @@ nk.main.defineIngredient("cheese", {
     activate = function (ent)
         local selfPos = nk.main.getGridPos(ent)
         local newEnt = nk.main.transformEntity(ent, "melted_cheese", true)
-        nk.components.heat.change(newEnt, 20)
+        nk.components.heat.change(newEnt, 40)
     end}
 })
 

@@ -2,7 +2,7 @@ nk = {}
 
 require('broadcast')
 require('class')
-require('deepCopy')
+require('utils')
 
 function love.load()
     require('modLoading')

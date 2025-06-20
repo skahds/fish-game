@@ -54,7 +54,7 @@ function nk.main.defineEntity(id, eType)
     function entityClass:init(args)
         for k, v in pairs(eType) do
             if type(v) == "table" then
-                self[k] = deepCopy(v)
+                self[k] = utils.deepCopy(v)
             else
                 self[k] = v
             end
@@ -62,7 +62,7 @@ function nk.main.defineEntity(id, eType)
 
         for k, v in pairs(args) do
             if type(v) == "table" then
-                self[k] = deepCopy(v)
+                self[k] = utils.deepCopy(v)
             else
                 self[k] = v
             end
